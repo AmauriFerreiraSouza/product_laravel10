@@ -14,8 +14,8 @@
                     <label>Description (optional)</label>
                     <textarea cols="10" rows="5" name="description"></textarea>
                     <label>Add Image</label>
-                    <img src="" alt="" class="img-product"/>
-                    <input type="file" name="image">
+                    <img src="" alt="" class="img-product" id="file-preview"/>
+                    <input type="file" name="image" accept="image/*" onchange="showFile(event)">
                 </div>
                <div>
                     <label>Category</label>
@@ -41,5 +41,16 @@
         </form>
     </section>
 </main>
-    
+    <script>
+        function showFile () {
+            var input = event.target;
+            var reader = new FileReader();
+            reader.onload = function () {
+                var dataURL = reader.result;
+                var output = document.getElementById('file-preview');
+                output.src = dataURL;
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    </script>
 @endsection

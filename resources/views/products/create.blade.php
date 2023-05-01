@@ -3,6 +3,7 @@
 <main class="container">  
     <section>
         <form method="post" action=" {{ route('products.store') }}" enctype="multipart/form-data">
+            @csrf
             <div class="titlebar">
                 <h1>Add Product</h1>
                 <button>Save</button>

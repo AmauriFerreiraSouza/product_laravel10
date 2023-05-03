@@ -23,6 +23,11 @@ class ProductController extends Controller
     {
         // $product = new Product;
 
+        $request->validate([
+            'name' => 'required',
+            'image' => 'required|image|mimes:png,jpg,jpeg,gif,svg|max:2028'
+        ]);
+
         $image_name = time().'.'. request()->image->getClientOriginalExtension();
 
         request()->image->move(public_path('images'), $image_name);

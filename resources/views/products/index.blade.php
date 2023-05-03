@@ -43,7 +43,7 @@
                     <img src="{{ asset('images/'.$product->image)}}"/>
                     <p> {{ $product->name }}</p>
                     <p> {{ $product->category }}</p>
-                    <p> {{ $product->inventory }}</p>   
+                    <p> {{ $product->quantity }}</p>   
                     <div>     
                         <button class="btn btn-success" >
                             <i class="fas fa-pencil-alt" ></i> 

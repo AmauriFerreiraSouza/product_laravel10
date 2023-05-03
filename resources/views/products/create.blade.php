@@ -6,8 +6,19 @@
             @csrf
             <div class="titlebar">
                 <h1>Add Product</h1>
-                <button>Save</button>
+                <a href=" {{ route('products.index')}} ">Back</a>
             </div>
+
+            @if ($errors->any())
+                <div>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li> {{ $error }} </li>        
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div class="card">
                <div>
                     <label>Name</label>

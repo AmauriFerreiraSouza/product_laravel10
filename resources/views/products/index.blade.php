@@ -37,18 +37,24 @@
                 <p>Actions</p>
             </div>
             <div class="table-product-body">
-                <img src="1.jpg"/>
-                <p> Product name</p>
-                <p>Category</p>
-                <p>Inventory</p>
-                <div>     
-                    <button class="btn btn-success" >
-                        <i class="fas fa-pencil-alt" ></i> 
-                    </button>
-                    <button class="btn btn-danger" >
-                        <i class="far fa-trash-alt"></i>
-                    </button>
-                </div>
+                
+                @if (count($products) > 0)
+                    @foreach ($products as $product)
+                    <img src="{{ asset('images/'.$product->image)}}"/>
+                    <p> {{ $product->name }}</p>
+                    <p> {{ $product->category }}</p>
+                    <p> {{ $product->inventory }}</p>   
+                    <div>     
+                        <button class="btn btn-success" >
+                            <i class="fas fa-pencil-alt" ></i> 
+                        </button>
+                        <button class="btn btn-danger" >
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                    </div>                     
+                    @endforeach
+                @endif
+                
             </div>
             <div class="table-paginate">
                 <div class="pagination">

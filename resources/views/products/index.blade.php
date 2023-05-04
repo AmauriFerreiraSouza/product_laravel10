@@ -6,6 +6,13 @@
             <h1>Products</h1>
             <a class="button" href=" {{ route('products.create') }}">Add Product</a>
         </div>
+        @if ($message = Session::get('success'))
+            <ul>
+                <li>
+                    {{ $message}}
+                </li>
+            </ul>
+        @endif
         <div class="table">
             <div class="table-filter">
                 <div>

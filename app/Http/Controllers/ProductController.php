@@ -8,10 +8,21 @@ use App\Models\Product;
 class ProductController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::orderby('created_at')->get();
-        return view('products.index', ['products' => $products]);
+        // pego o que vir do meu request no campo SEARCH
+        $keyWord = $request->get('search');
+        $perPage = 5;//Por página listo cinco produtos
+
+        if (!empty($keyWord)) {
+            $products = Product::where('name', 'LIKE', "%$keyWord%")
+            ->orWhere('category', 'LIKE', "%$keyWord%")
+            ->latest()->paginate($perPage); 
+        } else {
+            $products = Product::latest()->paginate($perPage);
+        }    
+
+        return view('products.index', ['products' => $products])->with('i', (request()->input('page', 1) -1) *5);
     }
 
     public function create()

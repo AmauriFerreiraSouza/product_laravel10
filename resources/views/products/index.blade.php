@@ -67,12 +67,12 @@
                     <p> {{ $product->category }}</p>
                     <p> {{ $product->quantity }}</p>   
                     <div>     
-                        <button class="btn btn-success" >
+                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-success" >
                             <i class="fas fa-pencil-alt" ></i> 
-                        </button>
-                        <button class="btn btn-danger" >
+                        </a>
+                        <a href="{{ route('products.destroy', $product->id) }}" class="btn btn-danger" >
                             <i class="far fa-trash-alt"></i>
-                        </button>
+                        </a>
                     </div>                     
                     @endforeach
                 @else

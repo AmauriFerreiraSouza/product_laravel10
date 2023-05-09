@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use App\Models\Product;
 
@@ -60,5 +61,38 @@ class ProductController extends Controller
         // $product->price = $request->price;
         // $product->save();
         return redirect()->route('products.index')->with('success', 'Produto adicionado com Sucesso!');
+    }
+
+    public function edit($id)
+    {
+        $product = Product::findOrFail($id);
+        return view('products.edit', ['product' => $product]);
+    }
+
+    public function update(Request $request, Product $product)
+    {   
+
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $image_name = $request->hidden_product_image;
+
+        if ($request->image != '') {
+            $image_name = time().'.'. request()->image->getClientOriginalExtension();
+            request()->image->move(public_path('images'), $image_name);
+        }
+
+        $product = Product::find($request->hidden_product_id);
+
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->image = $image_name;
+        $product->category = $request->category;
+        $product->quantity = $request->quantity;
+        $product->price = $request->price;
+        $product->update();
+
+        return redirect()->route('products.index')->with('success', 'Produto editado com Sucesso!');
     }
 }

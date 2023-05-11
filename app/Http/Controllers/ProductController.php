@@ -95,4 +95,17 @@ class ProductController extends Controller
 
         return redirect()->route('products.index')->with('success', 'Produto editado com Sucesso!');
     }
+
+    public function destroy($id)
+    {
+        $product = Product::findOrFail($id);
+        $image_path = public_path()."/images/";
+        $image = $image_path. $product->image;
+        if (file_exists($image)) {
+            @unlink($image);
+        }
+        $product->delete();
+
+        return redirect()->route('products.index')->with('success', 'Produto excluido com Sucesso!');
+    }
 }

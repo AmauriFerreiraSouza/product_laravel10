@@ -66,13 +66,20 @@
                     <p> {{ $product->name }}</p>
                     <p> {{ $product->category }}</p>
                     <p> {{ $product->quantity }}</p>   
-                    <div>     
+                    <div style="display: flex">     
                         <a href="{{ route('products.edit', $product->id) }}" class="btn btn-success" >
                             <i class="fas fa-pencil-alt" ></i> 
                         </a>
-                        <a href="{{ route('products.destroy', $product->id) }}" class="btn btn-danger" >
-                            <i class="far fa-trash-alt"></i>
-                        </a>
+
+                        <form method="post" action="{{ route('products.destroy', $product->id) }}">
+                        @method('delete')
+                        @csrf
+                            <button class="btn btn-danger" onclick="deleteConfirm(event)" style="margin-top: 16px;
+                            padding: 15px;
+                            margin-left: 5px;">
+                                <i class="far fa-trash-alt"></i>
+                            </button>
+                        </form>
                     </div>                     
                     @endforeach
                 @else
@@ -86,40 +93,25 @@
             </div>
         </div>
     </section>
-    
-    {{-- <section>
-        <div class="titlebar">
-            <h1>Edit Product</h1>
-            <button>Save</button>
-        </div>
-        <div class="card">
-           <div>
-                <label>Name</label>
-                <input type="text" >
-                <label>Description (optional)</label>
-                <textarea cols="10" rows="5" ></textarea>
-                <label>Add Image</label>
-                <img src="1.jpg" alt="" class="img-product" />
-                <input type="file" >
-            </div>
-           <div>
-                <label>Category</label>
-                <select  name="" id="" >
-                    <option value="" >Email Subscription</option>
-                </select>
-                <hr>
-                <label>Inventory</label>
-                <input type="text" class="input" >
-                <hr>
-                <label>Price</label>
-                <input type="text" class="input" >
-           </div>
-        </div>
-        <div class="titlebar">
-            <h1></h1>
-            <button>Save</button>
-        </div>
-    </section> --}}
     <br>
 </main>  
+<script>
+    window.deleteConfirm = function (e) {
+        e.preventDefault();
+        var form = e.target.form;
+        Swal.fire({
+            title: 'Você tem certeza que deseja excluir?',
+            text: "você não poderá reverter essa ação",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, excluir!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }
+        })
+    }
+</script>
 @endsection

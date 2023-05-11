@@ -89,7 +89,6 @@
             </div>
             <div class="table-paginate">
                 {{ $products->links('layouts.pagination') }}
-                
             </div>
         </div>
     </section>
@@ -111,7 +110,7 @@
             if (result.isConfirmed) {
                 form.submit();
             }
-        })
+        });
     }
 </script>
 @endsection
